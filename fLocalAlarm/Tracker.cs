@@ -12,6 +12,7 @@ using System.Media;
 using TLSharp.Core;
 using TeleSharp.TL;
 using TeleSharp.TL.Messages;
+using WindowsInput;
 
 namespace fLocalAlarm
 {
@@ -56,9 +57,15 @@ namespace fLocalAlarm
         public Task Run;
 
         public Boolean enemyAlarm, neutAlarm;
+        private int WarpX;
+        private int WarpY;
+        private bool IsBackground;
+        private bool IsWarp;
+        private InputSimulator inputSimulator;
 
         public Tracker()
         {
+            inputSimulator = new InputSimulator();
             updateSettings();
             t = new Thread(run);
             t.Start();            
@@ -103,7 +110,7 @@ namespace fLocalAlarm
                     try
                     {
                         infoBox.timer1.Enabled = true;
-                        screen = Screen.getScreen(x, y, 10, (h * 18) + 10);
+                        screen = ScreenCapturer.getScreen(x, y, 10, (h * 18) + 10, false);
                         //screen = getScreen(x, y, 10, (h * 18) + 10);
                     }
                     catch(Exception exc)
@@ -209,7 +216,11 @@ namespace fLocalAlarm
             h = Properties.Settings.Default.h;
             enemyAlarm = Properties.Settings.Default.enemyAlarm;
             neutAlarm = Properties.Settings.Default.neutAlarm;
-            if(Properties.Settings.Default.isTelgram)
+            WarpX = Properties.Settings.Default.warpX;
+            WarpY = Properties.Settings.Default.warpY;
+            IsBackground = Properties.Settings.Default.background;
+            IsWarp = Properties.Settings.Default.allign;
+            if (Properties.Settings.Default.isTelgram)
             {
                 if (Run != null)
                 {
@@ -263,14 +274,28 @@ namespace fLocalAlarm
         }
 
         public void beep()
-        {
+        {         
             if (Properties.Settings.Default.isTelgram)
             {
-                //messager.sendMessage("XI-VUF alarm", "В систему залетел нейтрал");
                 Tracker.tracker.messager.SendToAll("В систему залетел нейтрал").GetAwaiter();
             }
             
             beep(10);
+
+            if (IsWarp)
+            {
+                IntPtr handle = ScreenCapturer.FindWindow(null, String.Format("EVE - {0}", Properties.Settings.Default.pilotName));
+                ScreenCapturer.SetForegroundWindow(handle);
+                inputSimulator.Mouse.MoveMouseTo(1, 1);
+                Thread.Sleep(1200);
+                MoveMouse(WarpX, WarpY);
+                Thread.Sleep(1200);
+                inputSimulator.Mouse.RightButtonClick();
+                Thread.Sleep(1200);
+                MoveMouse(WarpX + 73, WarpY + 39);
+                Thread.Sleep(1200);
+                inputSimulator.Mouse.LeftButtonClick();
+            }
         }
 
         public void hand()
@@ -301,5 +326,11 @@ namespace fLocalAlarm
             }
         }
 
+        void MoveMouse(int x, int y)
+        {
+            int maxWidth = Screen.PrimaryScreen.Bounds.Width;
+            int maxHeight = Screen.PrimaryScreen.Bounds.Height;
+            inputSimulator.Mouse.MoveMouseTo((x)/(double)maxWidth * 65535, (y) / (double)maxHeight * 65535);
+        }
     }
 }

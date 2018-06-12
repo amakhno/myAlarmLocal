@@ -81,6 +81,9 @@
       <HintPath>..\packages\TLSharp.0.1.0.262\lib\net45\TLSharp.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="WindowsInput, Version=1.0.4.0, Culture=neutral, PublicKeyToken=9b287f7dc5073cad, processorArchitecture=MSIL">
+      <HintPath>..\packages\InputSimulator.1.0.4.0\lib\net20\WindowsInput.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InfoBox.cs">
@@ -89,7 +92,7 @@
     <Compile Include="InfoBox.Designer.cs">
       <DependentUpon>InfoBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Screen.cs" />
+    <Compile Include="ScreenCapturer.cs" />
     <Compile Include="SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>

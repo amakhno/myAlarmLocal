@@ -23,6 +23,11 @@ namespace fLocalAlarm
             yBox.Value = Properties.Settings.Default.y;
             hBox.Value = Properties.Settings.Default.h;
             nameTextBox.Text = Properties.Settings.Default.pilotName;
+            WarpX.Value = Properties.Settings.Default.warpX;
+            WarpY.Value = Properties.Settings.Default.warpY;
+            IsBackgroundCheckbox.Checked = Properties.Settings.Default.background;
+            IsWarpCheckbox.Checked = Properties.Settings.Default.allign;
+
         }
 
         private void cancelButton_Click(object sender, EventArgs e)
@@ -39,6 +44,12 @@ namespace fLocalAlarm
 
             Properties.Settings.Default.enemyAlarm = enemyAlarm.Checked;
             Properties.Settings.Default.neutAlarm = neutAlarm.Checked;
+
+            Properties.Settings.Default.warpX = (int) WarpX.Value;
+            Properties.Settings.Default.warpY = (int) WarpY.Value;
+
+            Properties.Settings.Default.background = IsBackgroundCheckbox.Checked;
+            Properties.Settings.Default.allign = IsWarpCheckbox.Checked;
 
             Properties.Settings.Default.Save();
             this.Close();

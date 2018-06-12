@@ -5,13 +5,17 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace fLocalAlarm
 {
-    public class Screen
+    public class ScreenCapturer
     {
         [System.Runtime.InteropServices.DllImport("user32.dll", EntryPoint = "FindWindow")]
-        private static extern IntPtr FindWindow(string _ClassName, string _WindowName);
+        public static extern IntPtr FindWindow(string _ClassName, string _WindowName);
+
+        [DllImport("user32.dll")]
+        public static extern bool SetForegroundWindow(IntPtr hWnd);
 
         public static Image BackgroundScreen(string PilotName)
         {
@@ -54,16 +58,42 @@ namespace fLocalAlarm
             return img;
         }
 
-        public static Bitmap getScreen(int x, int y, int width, int height)
+        public static Bitmap NonBackScreen()
         {
-            Image output = Screen.BackgroundScreen(Properties.Settings.Default.pilotName);
-            Bitmap source = new Bitmap(output);
+            Bitmap bmpScreenCapture = new Bitmap(Screen.PrimaryScreen.Bounds.Width,
+                                            Screen.PrimaryScreen.Bounds.Height);
+            using (Graphics g = Graphics.FromImage(bmpScreenCapture))
+            {
+                g.CopyFromScreen(Screen.PrimaryScreen.Bounds.X,
+                                 Screen.PrimaryScreen.Bounds.Y,
+                                 0, 0,
+                                 bmpScreenCapture.Size,
+                                 CopyPixelOperation.SourceCopy);
+                
+            }
+            return bmpScreenCapture;
+        }
+
+        public static Bitmap getScreen(int x, int y, int width, int height, bool IsBackground = true)
+        {
+            Bitmap source;
+            Image output;
+
+            if (IsBackground)
+            {
+                output = ScreenCapturer.BackgroundScreen(Properties.Settings.Default.pilotName);
+                source = new Bitmap(output);
+            }
+            else
+            {
+                source = NonBackScreen();
+            }
+            
             System.Drawing.Imaging.PixelFormat format =
                     source.PixelFormat;
             Rectangle cloneRect = new Rectangle(x, y, width, height);
             Bitmap bmpScreenCapture = source.Clone(cloneRect, format);
             source.Dispose();
-            output.Dispose();
             return bmpScreenCapture;
         }
     }

@@ -41,9 +41,17 @@
             this.label1 = new System.Windows.Forms.Label();
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.WarpX = new System.Windows.Forms.NumericUpDown();
+            this.WarpY = new System.Windows.Forms.NumericUpDown();
+            this.IsWarpCheckbox = new System.Windows.Forms.CheckBox();
+            this.IsBackgroundCheckbox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.xBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.yBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WarpX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WarpY)).BeginInit();
             this.SuspendLayout();
             // 
             // xLabel
@@ -87,7 +95,7 @@
             // cancelButton
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cancelButton.Location = new System.Drawing.Point(97, 227);
+            this.cancelButton.Location = new System.Drawing.Point(194, 227);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 7;
@@ -180,23 +188,95 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(179, 13);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(54, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Отварп X";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(179, 53);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(54, 13);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Отварп Y";
+            // 
+            // WarpX
+            // 
+            this.WarpX.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.WarpX.InterceptArrowKeys = false;
+            this.WarpX.Location = new System.Drawing.Point(178, 30);
+            this.WarpX.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.WarpX.Name = "WarpX";
+            this.WarpX.Size = new System.Drawing.Size(94, 20);
+            this.WarpX.TabIndex = 10;
+            // 
+            // WarpY
+            // 
+            this.WarpY.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.WarpY.InterceptArrowKeys = false;
+            this.WarpY.Location = new System.Drawing.Point(178, 70);
+            this.WarpY.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.WarpY.Name = "WarpY";
+            this.WarpY.Size = new System.Drawing.Size(94, 20);
+            this.WarpY.TabIndex = 11;
+            // 
+            // IsWarpCheckbox
+            // 
+            this.IsWarpCheckbox.AutoSize = true;
+            this.IsWarpCheckbox.Location = new System.Drawing.Point(182, 96);
+            this.IsWarpCheckbox.Name = "IsWarpCheckbox";
+            this.IsWarpCheckbox.Size = new System.Drawing.Size(62, 17);
+            this.IsWarpCheckbox.TabIndex = 16;
+            this.IsWarpCheckbox.Text = "Разгон";
+            this.IsWarpCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // IsBackgroundCheckbox
+            // 
+            this.IsBackgroundCheckbox.AutoSize = true;
+            this.IsBackgroundCheckbox.Location = new System.Drawing.Point(182, 119);
+            this.IsBackgroundCheckbox.Name = "IsBackgroundCheckbox";
+            this.IsBackgroundCheckbox.Size = new System.Drawing.Size(90, 17);
+            this.IsBackgroundCheckbox.TabIndex = 17;
+            this.IsBackgroundCheckbox.Text = "Задний план";
+            this.IsBackgroundCheckbox.UseVisualStyleBackColor = true;
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(184, 262);
+            this.ClientSize = new System.Drawing.Size(281, 262);
             this.ControlBox = false;
+            this.Controls.Add(this.IsBackgroundCheckbox);
+            this.Controls.Add(this.IsWarpCheckbox);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.nameTextBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.hBox);
+            this.Controls.Add(this.WarpY);
             this.Controls.Add(this.yBox);
+            this.Controls.Add(this.WarpX);
             this.Controls.Add(this.xBox);
             this.Controls.Add(this.neutAlarm);
             this.Controls.Add(this.enemyAlarm);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.confirmButton);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.hLabel);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.yLabel);
             this.Controls.Add(this.xLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -206,6 +286,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.xBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.yBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.hBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WarpX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WarpY)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -226,5 +308,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown WarpX;
+        private System.Windows.Forms.NumericUpDown WarpY;
+        private System.Windows.Forms.CheckBox IsWarpCheckbox;
+        private System.Windows.Forms.CheckBox IsBackgroundCheckbox;
     }
 }
